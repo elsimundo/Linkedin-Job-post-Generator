@@ -22,11 +22,13 @@ export default function JobImageCanvas({ data, canvasId = 'job-canvas' }: JobIma
   const bgColor = isBlueScheme ? 'bg-white' : 'bg-[#25467a]';
   const textColor = isBlueScheme ? 'text-[#25467a]' : 'text-white';
   const logoSrc = isBlueScheme ? '/Quest.svg' : '/Quest Group white.svg';
+  const compassSrc = isBlueScheme ? '/compass-black.png' : '/compass.svg';
+  const borderStyle = isBlueScheme ? 'border border-gray-300' : '';
 
   return (
     <div
       id={canvasId}
-      className={`relative ${bgColor} overflow-hidden`}
+      className={`relative ${bgColor} ${borderStyle} overflow-hidden`}
       style={{ width: '1080px', height: '1080px' }}
     >
       {/* Compass Background Overlay - fixed at 5% opacity */}
@@ -36,7 +38,7 @@ export default function JobImageCanvas({ data, canvasId = 'job-canvas' }: JobIma
       >
         <div className="relative w-full h-full">
           <Image
-            src="/compass.svg"
+            src={compassSrc}
             alt=""
             fill
             className="object-contain"

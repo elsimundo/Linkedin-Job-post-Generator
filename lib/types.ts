@@ -34,7 +34,7 @@ export const DEFAULT_JOB_VACANCY: JobVacancy = {
   compassOpacity: 5,
   colorScheme: 'white',
   customPills: [],
-  footerDescription: '',
+  footerDescription: 'Be part of something bigger. Apply now.',
   hideEmploymentType: false,
   hideLocation: false,
 };

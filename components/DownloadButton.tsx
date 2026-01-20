@@ -16,13 +16,6 @@ export default function DownloadButton({ canvasId, jobTitle, isValid }: Download
   const [errorMessage, setErrorMessage] = useState('');
 
   const handleDownload = async () => {
-    if (!isValid) {
-      setStatus('error');
-      setErrorMessage('Please fill in all required fields (Job Title, Location, Employment Type)');
-      setTimeout(() => setStatus('idle'), 3000);
-      return;
-    }
-
     setIsGenerating(true);
     setStatus('idle');
     setErrorMessage('');
@@ -86,14 +79,6 @@ export default function DownloadButton({ canvasId, jobTitle, isValid }: Download
         </div>
       )}
 
-      {!isValid && status === 'idle' && (
-        <div className="flex items-start gap-2 p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
-          <AlertCircle className="w-5 h-5 text-yellow-600 flex-shrink-0 mt-0.5" />
-          <p className="text-sm text-yellow-700">
-            Required fields: Job Title, Location, Employment Type
-          </p>
-        </div>
-      )}
     </div>
   );
 }

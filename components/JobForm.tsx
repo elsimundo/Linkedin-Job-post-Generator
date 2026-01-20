@@ -169,7 +169,7 @@ export default function JobForm({ data, onChange, onReset }: JobFormProps) {
         <div className="flex gap-2 mb-3">
           <input
             type="text"
-            maxLength={24}
+            maxLength={50}
             placeholder="e.g., Static Role"
             className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#25467a] focus:border-transparent outline-none text-sm"
             value={pillInput}
