@@ -1,0 +1,29 @@
+<svg width="756" height="756" viewBox="0 0 756 756" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Compass Rose Design -->
+  <circle cx="378" cy="378" r="350" stroke="white" stroke-width="4" opacity="0.3"/>
+  <circle cx="378" cy="378" r="300" stroke="white" stroke-width="3" opacity="0.25"/>
+  <circle cx="378" cy="378" r="250" stroke="white" stroke-width="2" opacity="0.2"/>
+  <circle cx="378" cy="378" r="200" stroke="white" stroke-width="2" opacity="0.15"/>
+  <circle cx="378" cy="378" r="150" stroke="white" stroke-width="2" opacity="0.1"/>
+  
+  <!-- Main compass points -->
+  <line x1="378" y1="28" x2="378" y2="728" stroke="white" stroke-width="3" opacity="0.3"/>
+  <line x1="28" y1="378" x2="728" y2="378" stroke="white" stroke-width="3" opacity="0.3"/>
+  
+  <!-- Diagonal lines -->
+  <line x1="103" y1="103" x2="653" y2="653" stroke="white" stroke-width="2" opacity="0.25"/>
+  <line x1="653" y1="103" x2="103" y2="653" stroke="white" stroke-width="2" opacity="0.25"/>
+  
+  <!-- North arrow -->
+  <path d="M378 78 L398 138 L378 128 L358 138 Z" fill="white" opacity="0.4"/>
+  
+  <!-- Decorative elements -->
+  <circle cx="378" cy="378" r="30" fill="white" opacity="0.3"/>
+  <circle cx="378" cy="378" r="15" fill="white" opacity="0.5"/>
+  
+  <!-- Cardinal direction markers -->
+  <text x="378" y="60" font-family="Arial" font-size="32" font-weight="bold" fill="white" text-anchor="middle" opacity="0.4">N</text>
+  <text x="696" y="388" font-family="Arial" font-size="32" font-weight="bold" fill="white" text-anchor="middle" opacity="0.3">E</text>
+  <text x="378" y="710" font-family="Arial" font-size="32" font-weight="bold" fill="white" text-anchor="middle" opacity="0.3">S</text>
+  <text x="60" y="388" font-family="Arial" font-size="32" font-weight="bold" fill="white" text-anchor="middle" opacity="0.3">W</text>
+</svg>
