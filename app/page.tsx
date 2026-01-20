@@ -98,9 +98,18 @@ export default function Home() {
               </div>
 
               {showPreview && (
-                <div className="flex justify-center">
-                  <div className="transform scale-[0.4] origin-top">
-                    <JobImageCanvas data={jobData} canvasId="job-canvas" />
+                <div className="overflow-hidden" style={{ height: '324px' }}>
+                  <div className="flex justify-center">
+                    <div 
+                      className="origin-top"
+                      style={{ 
+                        transform: 'scale(0.3)',
+                        width: '1080px',
+                        height: '1080px',
+                      }}
+                    >
+                      <JobImageCanvas data={jobData} canvasId="job-canvas" />
+                    </div>
                   </div>
                 </div>
               )}
