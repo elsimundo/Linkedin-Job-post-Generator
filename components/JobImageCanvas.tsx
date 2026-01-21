@@ -23,7 +23,7 @@ export default function JobImageCanvas({ data, canvasId = 'job-canvas' }: JobIma
   const textColor = isBlueScheme ? 'text-[#25467a]' : 'text-white';
   const logoSrc = isBlueScheme ? '/Quest.svg' : '/Quest Group white.svg';
   const compassSrc = isBlueScheme ? '/compass-black.png' : '/compass.svg';
-  const borderStyle = isBlueScheme ? 'border border-gray-300' : '';
+  const borderStyle = isBlueScheme && canvasId === 'job-canvas' ? 'border border-gray-300' : '';
 
   return (
     <div
