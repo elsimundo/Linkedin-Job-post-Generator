@@ -48,7 +48,7 @@ export default function JobImageCanvas({ data, canvasId = 'job-canvas' }: JobIma
       </div>
 
       {/* Content Container */}
-      <div className="relative z-10 h-full flex flex-col p-[68px]">
+      <div className="relative z-10 h-full flex flex-col pt-[48px] px-[68px] pb-[68px]">
         {/* Header Section - Logo Only - TOP ALIGNED */}
         <div className="mb-6">
           <div className="relative w-[420px] h-[145px]">

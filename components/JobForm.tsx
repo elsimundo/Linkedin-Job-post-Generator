@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { JobVacancy } from '@/lib/types';
 import { 
   Briefcase, 
@@ -24,6 +24,7 @@ interface JobFormProps {
 
 export default function JobForm({ data, onChange, onReset }: JobFormProps) {
   const [pillInput, setPillInput] = useState('');
+  const [overflowWarning, setOverflowWarning] = useState(false);
 
   const updateField = (field: keyof JobVacancy, value: string | number) => {
     onChange({ ...data, [field]: value });
@@ -33,9 +34,19 @@ export default function JobForm({ data, onChange, onReset }: JobFormProps) {
     const trimmed = pill.trim();
     if (!trimmed) return;
     if (data.customPills.includes(trimmed)) return;
-    if (data.customPills.length >= 5) return; // allow more flexibility while keeping layout clean
+    if (data.customPills.length >= 5) return;
+    
+    // Check if adding this pill would cause overflow
+    const testData = { ...data, customPills: [...data.customPills, trimmed] };
+    if (wouldOverflow(testData)) {
+      setOverflowWarning(true);
+      setTimeout(() => setOverflowWarning(false), 3000);
+      return;
+    }
+    
     onChange({ ...data, customPills: [...data.customPills, trimmed] });
     setPillInput('');
+    setOverflowWarning(false);
   };
 
   const handleRemovePill = (pill: string) => {
@@ -43,6 +54,49 @@ export default function JobForm({ data, onChange, onReset }: JobFormProps) {
       ...data,
       customPills: data.customPills.filter((p) => p !== pill),
     });
+    setOverflowWarning(false);
+  };
+
+  // Estimate if pills would overflow the canvas
+  const wouldOverflow = (testData: JobVacancy) => {
+    // Count visible pills
+    let pillCount = testData.customPills.length;
+    if (testData.location && !testData.hideLocation) pillCount++;
+    if (testData.employmentType && !testData.hideEmploymentType) pillCount++;
+    
+    // Calculate approximate total width of pills (rough estimate)
+    let totalWidth = 0;
+    const avgCharWidth = 18; // approximate width per character at text-3xl
+    const pillPadding = 56; // px-7 = 28px each side
+    const iconWidth = 28; // w-7 for MapPin icon
+    const gap = 20; // gap-5
+    
+    if (testData.location && !testData.hideLocation) {
+      totalWidth += (testData.location.length * avgCharWidth) + pillPadding + iconWidth + gap;
+    }
+    if (testData.employmentType && !testData.hideEmploymentType) {
+      totalWidth += (testData.employmentType.length * avgCharWidth) + pillPadding + gap;
+    }
+    testData.customPills.forEach(pill => {
+      totalWidth += (pill.length * avgCharWidth) + pillPadding + gap;
+    });
+    
+    // Canvas content width is 1080 - (68px padding * 2) = 944px
+    const maxWidth = 944;
+    
+    // If pills would wrap to more than 2 rows, it's likely to overflow
+    const estimatedRows = Math.ceil(totalWidth / maxWidth);
+    
+    // Also check if we have too many long pills
+    const hasLongTitle = testData.jobTitle.length > 40;
+    const hasSalary = !!testData.salary;
+    const hasFooterDesc = !!testData.footerDescription;
+    
+    // Conservative overflow detection
+    if (estimatedRows > 2) return true;
+    if (estimatedRows > 1 && hasLongTitle && hasSalary && hasFooterDesc) return true;
+    
+    return false;
   };
 
   return (
@@ -164,12 +218,18 @@ export default function JobForm({ data, onChange, onReset }: JobFormProps) {
       {/* Custom Pills */}
       <div className="pt-6 border-t border-gray-200">
         <h3 className="text-lg font-semibold text-gray-900 mb-3">Custom Pills (optional)</h3>
-        <p className="text-xs text-gray-500 mb-3">Add short tags like team names, shift patterns, or key highlights. Max 4.</p>
+        <p className="text-xs text-gray-500 mb-3">Add short tags like team names, shift patterns, or key highlights. Max 5 pills, keep them concise.</p>
+        {overflowWarning && (
+          <div className="mb-3 p-3 bg-amber-50 border border-amber-200 rounded-lg flex items-start gap-2">
+            <span className="text-amber-600 text-sm">⚠️</span>
+            <p className="text-xs text-amber-700">This pill would push content off the canvas. Try removing other pills or using shorter text.</p>
+          </div>
+        )}
 
         <div className="flex gap-2 mb-3">
           <input
             type="text"
-            maxLength={50}
+            maxLength={40}
             placeholder="e.g., Static Role"
             className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#25467a] focus:border-transparent outline-none text-sm"
             value={pillInput}
